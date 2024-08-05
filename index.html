@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP3 Player with Volume Control</title>
+    <style>
+        .player {
+            text-align: center;
+            margin-top: 50px;
+        }
+        button, input[type="range"] {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        /* Media query for devices with a width of 600px or less (e.g., phones) */
+        @media (max-width: 600px) {
+            .player {
+                margin-top: 20px;
+            }
+            button, input[type="range"] {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+
+        /* Media query for devices with a width greater than 600px (e.g., tablets, laptops, desktops) */
+        @media (min-width: 601px) {
+            .player {
+                margin-top: 50px;
+            }
+            button, input[type="range"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
+
+        /* Media query for devices with a width of 1200px or more (e.g., large desktops) */
+        @media (min-width: 1200px) {
+            button, input[type="range"] {
+                font-size: 18px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player">
+        <audio id="audioPlayer">
+            <source src="million.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div>
+            <button onclick="playAudio()">Play</button>
+            <button onclick="pauseAudio()">Pause</button>
+        </div>
+        <div>
+            <label for="volumeControl">Volume: </label>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" onchange="adjustVolume(this.value)">
+        </div>
+    </div>
+
+    <script>
+        var audio = document.getElementById('audioPlayer');
+
+        function playAudio() {
+            audio.play();
+        }
+
+        function pauseAudio() {
+            audio.pause();
+        }
+
+        function adjustVolume(volume) {
+            audio.volume = volume;
+        }
+    </script>
+</body>
+</html>
