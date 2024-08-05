@@ -1,0 +1,40 @@
+.player {
+    text-align: center;
+    margin-top: 50px;
+}
+
+button, input[type="range"] {
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Media query for devices with a width of 600px or less (e.g., phones) */
+@media (max-width: 600px) {
+    .player {
+        margin-top: 20px;
+    }
+    button, input[type="range"] {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/* Media query for devices with a width greater than 600px (e.g., tablets, laptops, desktops) */
+@media (min-width: 601px) {
+    .player {
+        margin-top: 50px;
+    }
+    button, input[type="range"] {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+/* Media query for devices with a width of 1200px or more (e.g., large desktops) */
+@media (min-width: 1200px) {
+    button, input[type="range"] {
+        font-size: 18px;
+        padding: 12px;
+    }
+}
