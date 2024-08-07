@@ -65,7 +65,9 @@ ul li a:hover {
 
 .body {
     display: flex;
+    flex-direction: row; /* Arrange items in a row by default */
     align-items: center;
+    justify-content: center;
 }
 
 .body ul {
@@ -95,9 +97,15 @@ ul li a:hover {
     transform: scale(1.1); /* Scale the image to 110% when hovered */
 }
 
-.picture img{
-    width: 400px;
-    height: 450px;
+.picture, .text {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.picture img {
+    width: 50vw; /* 50% of viewport width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 400px; /* Set a max width if needed */
     margin-top: 50px;
     margin-left: 50px;
     border-radius: 10px;
@@ -105,9 +113,8 @@ ul li a:hover {
 }
 
 .text {
-    margin-left: 300px;
-    margin-top: 50px;
-    font-size: 24px;
+    margin-left: 2vw;
+    font-size: 2vw;
     color: #333;
 }
 
@@ -127,6 +134,23 @@ button, input[type="range"] {
 
 /* Media query for devices with a width of 600px or less (e.g., phones) */
 @media (max-width: 600px) {
+    .body {
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: center; /* Center items horizontally */
+    }
+
+    .picture, .text {
+        margin: 10px 0; /* Adjust margins for better spacing */
+    }
+
+    .picture img {
+        width: 80%; /* Adjust image width for small screens */
+        max-width: none; /* Remove max-width constraint */
+    }
+
+    .text {
+        font-size: 20px; /* Reduce font size for small screens */
+    }
     .player {
         margin-top: 20px;
     }
