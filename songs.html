@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP3 Player with Volume Control</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="header">
+        <nav>
+            <a href="index.html"><img src="images\logo.png" class="logo"></a>
+            <ul>   
+                <li><a href="#">Story</a></li>       
+                <li><a href="#">Pictures</a></li> 
+                <li><a href="#">Songs</a></li> 
+            </ul>
+            <img src="images\menu.png" class="menu">
+        </nav>
+    </div>  
+    <div class="player">
+        <audio id="audioPlayer">
+            <source src="million.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div>
+            <button onclick="playAudio()">Play</button>
+            <button onclick="pauseAudio()">Pause</button>
+        </div>
+        <div>
+            <label for="volumeControl">Volume: </label>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" onchange="adjustVolume(this.value)">
+        </div>
+    </div>
+
+    <script>
+        var audio = document.getElementById('audioPlayer');
+
+        function playAudio() {
+            audio.play();
+        }
+
+        function pauseAudio() {
+            audio.pause();
+        }
+
+        function adjustVolume(volume) {
+            audio.volume = volume;
+        }
+    </script>
+</body>
+</html>
