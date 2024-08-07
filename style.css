@@ -5,9 +5,11 @@ body {
 
 .player {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 3vw;
     color: #333;
 }
+
+
 
 .header {
     width:  100%;
@@ -68,6 +70,7 @@ ul li a:hover {
     flex-direction: row; /* Arrange items in a row by default */
     align-items: center;
     justify-content: center;
+    margin-top: 40px;
 }
 
 .body ul {
@@ -127,6 +130,11 @@ ul li a:hover {
     text-align: center;
 }
 
+.message p {
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #333;    
+}
 
 .img {
     position: absolute;
@@ -195,7 +203,7 @@ button, input[type="range"] {
         font-size: 20px; /* Reduce font size for small screens */
     }
     .player {
-        margin-top: 20px;
+        margin-top: 70px;
     }
     button, input[type="range"] {
         font-size: 14px;
@@ -216,12 +224,59 @@ button, input[type="range"] {
         font-size: 14px;
         padding: 15px 20px;
     }
+
+    .message {
+        display: flex;
+        flex-direction: column; /* Arrange items in a column by default */
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+        text-align: center;
+    }
+    
+    .message p {
+        margin-bottom: 20px;
+        font-size: 10px;
+        color: #333;    
+    }
+
+    .img {
+        position: absolute;
+        top: 130%;
+        right: 20px;
+        transform: translateY(-50%);
+    }
+    
+    .img img {
+        display: block;
+        margin-bottom: 60px;
+        width: 70px;
+        height: 120px;
+        border-radius: 20px;
+        transform: rotate(10deg);
+    }
+    
+    .img2 {
+        position: absolute;
+        top: 130%;
+        left: 20px;
+        transform: translateY(-50%);
+    }
+    
+    .img2 img {
+        display: block;
+        margin-bottom: 60px;
+        width: 70px;
+        height: 120px;
+        border-radius: 20px;
+        transform: rotate(-10deg);
+    }
 }
 
 /* Media query for devices with a width between 601px and 1200px (e.g., tablets, small laptops) */
 @media (min-width: 601px) and (max-width: 1200px) {
     .player {
-        margin-top: 30px;
+        margin-top: 60px;
     }
     button, input[type="range"] {
         font-size: 16px;
