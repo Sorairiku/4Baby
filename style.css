@@ -118,6 +118,49 @@ ul li a:hover {
     color: #333;
 }
 
+.message {
+    display: flex;
+    flex-direction: column; /* Arrange items in a column by default */
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+.img {
+    position: absolute;
+    top: 100%;
+    right: 70px;
+    transform: translateY(-50%);
+}
+
+.img img {
+    display: block;
+    margin-bottom: 60px;
+    width: 250px;
+    height: 300px;
+    border-radius: 20px;
+    transform: rotate(10deg);
+}
+
+.img2 {
+    position: absolute;
+    top: 100%;
+    left: 70px;
+    transform: translateY(-50%);
+}
+
+.img2 img {
+    display: block;
+    margin-bottom: 60px;
+    width: 250px;
+    height: 300px;
+    border-radius: 20px;
+    transform: rotate(-10deg);
+}
+
+
 .controls, .volume-control {
     background-color: #fff;
     display: inline-block;
