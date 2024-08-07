@@ -297,6 +297,52 @@ button, input[type="range"] {
         font-size: 15px;
         padding: 18px 30px;
     }
+    .message {
+        display: flex;
+        flex-direction: column; /* Arrange items in a column by default */
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+        text-align: center;
+    }
+    
+    .message p {
+        margin-bottom: 20px;
+        font-size: 13px;
+        color: #333;    
+    }
+
+    .img {
+        position: absolute;
+        top: 120%;
+        right: 20px;
+        transform: translateY(-50%);
+    }
+    
+    .img img {
+        display: block;
+        margin-bottom: 60px;
+        width: 150px;
+        height: 200px;
+        border-radius: 20px;
+        transform: rotate(10deg);
+    }
+    
+    .img2 {
+        position: absolute;
+        top: 120%;
+        left: 20px;
+        transform: translateY(-50%);
+    }
+    
+    .img2 img {
+        display: block;
+        margin-bottom: 60px;
+        width: 150px;
+        height: 200px;
+        border-radius: 20px;
+        transform: rotate(-10deg);
+    }
 }
 
 /* Media query for devices with a width of 1200px or more (e.g., large desktops) */
