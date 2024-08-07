@@ -242,7 +242,7 @@ button, input[type="range"] {
 
     .img {
         position: absolute;
-        top: 130%;
+        top: 100%;
         right: 20px;
         transform: translateY(-50%);
     }
@@ -258,7 +258,7 @@ button, input[type="range"] {
     
     .img2 {
         position: absolute;
-        top: 130%;
+        top: 100%;
         left: 20px;
         transform: translateY(-50%);
     }
