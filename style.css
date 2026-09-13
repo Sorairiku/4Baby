@@ -666,6 +666,49 @@ body.theme-blue .envelope-seal {
     font-size: 16px;
 }
 
+.story-photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 8px 20px rgba(74, 48, 30, 0.12);
+}
+
+.story-video {
+    max-width: 760px;
+    margin: 0 auto 52px;
+    padding: 14px;
+    border: 1px solid #d8c5b2;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.42);
+    text-align: center;
+}
+
+.story-video video {
+    display: block;
+    width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    background: #2d211b;
+}
+
+.story-video figcaption {
+    padding-top: 10px;
+    color: #9a6e4e;
+    font-family: Georgia, serif;
+    font-size: 14px;
+}
+
+body.theme-blue .story-video {
+    border-color: var(--line);
+    background: rgba(255, 255, 255, 0.72);
+}
+
+body.theme-blue .story-video figcaption {
+    color: var(--muted-ink);
+}
+
 .last-message-link {
     display: block;
     width: fit-content;
