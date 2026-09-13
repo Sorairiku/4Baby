@@ -650,6 +650,9 @@ body.theme-blue .envelope-seal {
 .story-photos {
     display: grid;
     grid-template-columns: 1fr;
+    max-width: 280px;
+    margin-right: auto;
+    margin-left: auto;
     gap: 20px;
     position: sticky;
     top: 24px;
