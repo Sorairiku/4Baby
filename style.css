@@ -29,8 +29,9 @@ body {
     cursor: pointer;
 }
 
-.theme-name {
+.theme-label {
     min-width: 28px;
+    text-align: center;
 }
 
 body.theme-blue {
@@ -113,6 +114,21 @@ body.theme-blue .back-link,
 body.theme-blue .gallery-menu-link,
 body.theme-blue .home-link {
     color: var(--accent);
+}
+
+body.theme-blue .story-kicker,
+body.theme-blue .story-intro > p:last-child,
+body.theme-blue .menu-kicker {
+    color: #fff;
+}
+
+body.theme-blue .message-kicker,
+body.theme-blue .message-menu > p,
+body.theme-blue .message-letter h1,
+body.theme-blue .message-letter p,
+body.theme-blue .envelope-label small,
+body.theme-blue .envelope-label strong {
+    color: #fff;
 }
 
 :root {
