@@ -649,6 +649,7 @@ body.theme-blue .envelope-seal {
 
 .story-photos {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
     position: sticky;
     top: 24px;
@@ -669,7 +670,7 @@ body.theme-blue .envelope-seal {
 .story-photo {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: 4px;
     box-shadow: 0 8px 20px rgba(74, 48, 30, 0.12);
