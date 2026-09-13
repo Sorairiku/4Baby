@@ -124,7 +124,7 @@ body.theme-blue .menu-kicker {
 
 body.theme-blue .message-kicker,
 body.theme-blue .message-menu > p {
-    color: #fff;
+    color: var(--accent);
 }
 
 body.theme-blue .message-letter h1,
