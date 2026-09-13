@@ -123,12 +123,38 @@ body.theme-blue .menu-kicker {
 }
 
 body.theme-blue .message-kicker,
-body.theme-blue .message-menu > p,
+body.theme-blue .message-menu > p {
+    color: #fff;
+}
+
 body.theme-blue .message-letter h1,
 body.theme-blue .message-letter p,
 body.theme-blue .envelope-label small,
 body.theme-blue .envelope-label strong {
+    color: var(--ink);
+}
+
+body.theme-blue .envelope {
+    border-color: #b9d9e8;
+    background: #fff;
+}
+
+body.theme-blue .envelope::before {
+    background: #f7fcff;
+}
+
+body.theme-blue .envelope::after {
+    background: #d8edf7;
+}
+
+body.theme-blue .envelope-flap {
+    background: #fff;
+}
+
+body.theme-blue .envelope-seal {
+    border-color: #4d91b5;
     color: #fff;
+    background: #4d91b5;
 }
 
 :root {
