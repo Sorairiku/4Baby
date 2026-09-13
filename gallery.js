@@ -9,7 +9,7 @@ const gallerySets = {
     },
     both: {
         title: 'Both',
-        images: ['images/menbaby2.png', 'images/menbaby.JPG', 'images/3.png', 'images/6.png', 'images/8.png']
+        images: ['images/Us/1.png', 'images/Us/Us.jpg', ...Array.from({ length: 19 }, (_, index) => `images/Us/Us${index + 1}.jpg`)]
     },
     children: {
         title: 'Children',
