@@ -122,6 +122,14 @@ body.theme-blue .menu-kicker {
     color: var(--accent);
 }
 
+body.theme-blue .chapter-number {
+    color: var(--accent);
+}
+
+body.theme-blue .story-chapter {
+    border-bottom-color: var(--line);
+}
+
 body.theme-blue .message-kicker,
 body.theme-blue .message-menu > p {
     color: var(--accent);
