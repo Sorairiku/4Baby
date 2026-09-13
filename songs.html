@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MP3 Player with Volume Control</title>
+    <title>Songs for Us</title>
     <link rel="stylesheet" href="style.css">
     
 </head>
@@ -11,38 +11,92 @@
 
     <a class="back-link" href="menu.html">&larr; Back to menu</a>
 
-    <div class="player">
-        <audio id="audioPlayer">
-            <source src="songs\million.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <div class="title">
-            <h1>A Million Dreams (Sora Cover)</h1>
-        </div>
-        <div>
-            <button onclick="playAudio()">Play</button>
-            <button onclick="pauseAudio()">Pause</button>
-        </div>
-        <div>
-            <label for="volumeControl">Volume: </label>
-            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" onchange="adjustVolume(this.value)">
-        </div>
-    </div>
+    <main class="songs-page">
+        <header class="songs-intro">
+            <p class="gallery-kicker">A small soundtrack</p>
+            <h1>Songs for us</h1>
+            <p>Four Sora covers, plus the songs held by the story and the final message.</p>
+        </header>
+
+        <section class="songs-player" aria-label="Song player">
+            <audio id="audioPlayer" preload="metadata">
+                Your browser does not support the audio element.
+            </audio>
+            <p class="now-playing-label">Now playing</p>
+            <h2 id="nowPlaying">A Million Dreams</h2>
+            <p id="nowPlayingArtist">Sora cover</p>
+            <div class="song-controls">
+                <button type="button" id="playButton" aria-label="Play selected song" title="Play selected song">&#9654;</button>
+                <button type="button" id="pauseButton" aria-label="Pause selected song" title="Pause selected song">&#10074;&#10074;</button>
+                <label for="volumeControl">Volume</label>
+                <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.3" aria-label="Volume">
+            </div>
+        </section>
+
+        <section class="song-list" aria-label="Song list">
+            <button class="song-choice is-selected" type="button" data-src="songs/million.mp3" data-type="audio/mpeg" data-title="A Million Dreams" data-artist="Sora cover">
+                <span class="song-number">01</span><span><strong>A Million Dreams</strong><small>Sora cover</small></span>
+            </button>
+            <button class="song-choice" type="button" data-src="songs/Higa.m4a" data-type="audio/mp4" data-title="Higa" data-artist="Sora cover">
+                <span class="song-number">02</span><span><strong>Higa</strong><small>Sora cover</small></span>
+            </button>
+            <button class="song-choice" type="button" data-src="songs/Leaves.m4a" data-type="audio/mp4" data-title="Leaves" data-artist="Sora cover">
+                <span class="song-number">03</span><span><strong>Leaves</strong><small>Sora cover</small></span>
+            </button>
+            <button class="song-choice" type="button" data-src="songs/Paraluman.m4a" data-type="audio/mp4" data-title="Paraluman" data-artist="Sora cover">
+                <span class="song-number">04</span><span><strong>Paraluman</strong><small>Sora cover</small></span>
+            </button>
+            <button class="song-choice" type="button" data-src="songs/Sa susunod na habang buhay.m4a" data-type="audio/mp4" data-title="Sa susunod na habang buhay" data-artist="Sora cover">
+                <span class="song-number">05</span><span><strong>Sa susunod na habang buhay</strong><small>Sora cover</small></span>
+            </button>
+            <button class="song-choice song-choice-story" type="button" data-src="songs/journey-placeholder.mp3" data-type="audio/mpeg" data-title="Kalapastangan" data-artist="fitterkarma · Story song">
+                <span class="song-number">06</span><span><strong>Kalapastangan</strong><small>fitterkarma · Story song</small></span>
+            </button>
+            <button class="song-choice song-choice-message" type="button" data-src="songs/message3.mp3" data-type="audio/mpeg" data-title="Lifetime (Reimagined)" data-artist="Ben&Ben · Message 3 song">
+                <span class="song-number">07</span><span><strong>Lifetime (Reimagined)</strong><small>Ben&Ben · Message 3 song</small></span>
+            </button>
+        </section>
+    </main>
 
     <script>
         var audio = document.getElementById('audioPlayer');
+        var playButton = document.getElementById('playButton');
+        var pauseButton = document.getElementById('pauseButton');
+        var volumeControl = document.getElementById('volumeControl');
+        var nowPlaying = document.getElementById('nowPlaying');
+        var nowPlayingArtist = document.getElementById('nowPlayingArtist');
+        var songChoices = document.querySelectorAll('.song-choice');
 
-        function playAudio() {
+        function selectSong(choice, shouldPlay) {
+            audio.src = choice.dataset.src;
+            audio.type = choice.dataset.type;
+            nowPlaying.textContent = choice.dataset.title;
+            nowPlayingArtist.textContent = choice.dataset.artist;
+            songChoices.forEach(function (song) {
+                song.classList.toggle('is-selected', song === choice);
+            });
+            if (shouldPlay) {
+                audio.play();
+            }
+        }
+
+        playButton.addEventListener('click', function () {
             audio.play();
-        }
-
-        function pauseAudio() {
+        });
+        pauseButton.addEventListener('click', function () {
             audio.pause();
-        }
+        });
+        volumeControl.addEventListener('input', function () {
+            audio.volume = Number(volumeControl.value);
+        });
+        songChoices.forEach(function (choice) {
+            choice.addEventListener('click', function () {
+                selectSong(choice, true);
+            });
+        });
 
-        function adjustVolume(volume) {
-            audio.volume = volume;
-        }
+        audio.volume = 0.3;
+        selectSong(document.querySelector('.song-choice.is-selected'), false);
     </script>
 </body>
 </html>
