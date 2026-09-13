@@ -1,10 +1,11 @@
  (function () {
     var journeyTrack = "songs/journey-placeholder.mp3";
     var messageTrack = "songs/message3.mp3";
-    var defaultVolume = 0.3;
     var pageName = window.location.pathname.split("/").pop() || "index.html";
+    var defaultVolume = pageName === "message3.html" ? 0.2 : 0.3;
+    var volumeStorageKey = pageName === "message3.html" ? "messageVolume" : "journeyVolume";
     var backgroundAudio;
-    var storedVolume = localStorage.getItem("journeyVolume");
+    var storedVolume = localStorage.getItem(volumeStorageKey);
     var volume = storedVolume === null ? defaultVolume : Number(storedVolume);
 
     function stopMusic() {
@@ -61,7 +62,7 @@
         stopButton.addEventListener("click", stopMusic);
         volumeControl.addEventListener("input", function () {
             volume = Number(volumeControl.value);
-            localStorage.setItem("journeyVolume", volume);
+            localStorage.setItem(volumeStorageKey, volume);
             if (backgroundAudio) {
                 backgroundAudio.volume = volume;
             }
