@@ -3,30 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sora and Hera</title>
+    <title>Pictures | Sora and Hera</title>
     <link rel="stylesheet" href="style.css">
     
 </head>
-<body>
+<body class="pictures-page">
 
-    <a class="back-link" href="menu.html">&larr; Back to menu</a>
+    <header class="gallery-header">
+        <a class="back-link" href="menu.html">&larr; Back to menu</a>
+        <p class="gallery-kicker">A little album of us</p>
+        <h1>Pictures</h1>
+        <p>Choose a collection and wander through the memories.</p>
+    </header>
 
-    <div class="body">
-        <ul>
-            <li>
-                <img src="images\me.jpg" alt="Sora">
-                <h1>Sora</h1>
-            </li>
-            <li>
-                <img src="images\baby.jpg" alt="Hera">
-                <h1>Hera</h1>
-            </li>
-            <li>
-                <img src="images\menbaby2.png" alt="Both">
-                <h1>Both</h1>
-            </li>
-        </ul>
-    </div>
+    <main class="gallery-choices" aria-label="Photo collections">
+        <a class="gallery-choice gallery-choice-sora" href="sora.html">
+            <img src="images/me.jpg" alt="Sora">
+            <span class="gallery-choice-copy"><small>Collection 01</small><strong>Sora</strong><em>The way she sees me</em></span>
+        </a>
+        <a class="gallery-choice gallery-choice-hera" href="hera.html">
+            <img src="images/baby.jpg" alt="Hera">
+            <span class="gallery-choice-copy"><small>Collection 02</small><strong>Hera</strong><em>The way I see her</em></span>
+        </a>
+        <a class="gallery-choice gallery-choice-both" href="both.html">
+            <img src="images/menbaby2.png" alt="Sora and Hera together">
+            <span class="gallery-choice-copy"><small>Collection 03</small><strong>Both</strong><em>The two of us</em></span>
+        </a>
+    </main>
 
 </body>
 </html>

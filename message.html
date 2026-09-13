@@ -13,16 +13,28 @@
 
     
 
-    <main class="message-menu">
+    <main class="message-menu envelope-page">
+        <p class="message-kicker">Three letters, kept here</p>
         <h1>Messages for you</h1>
-        <p>Open a message whenever you need a reminder of us.</p>
+        <p>Choose an envelope and open it whenever you need a reminder of us.</p>
 
         <nav class="message-options" aria-label="Messages">
-            <a href="message1.html">My 2024 Message for You</a>
-            <a href="message2.html">For You</a>
-            <a href="message3.html">My Last Message</a>
+            <a class="envelope-link" href="message1.html">
+                <span class="envelope" aria-hidden="true"><span class="envelope-flap"></span><span class="envelope-seal">01</span></span>
+                <span class="envelope-label"><small>First letter</small><strong>My 2024 Message for You</strong></span>
+            </a>
+            <a class="envelope-link" href="message2.html">
+                <span class="envelope" aria-hidden="true"><span class="envelope-flap"></span><span class="envelope-seal">02</span></span>
+                <span class="envelope-label"><small>Second letter</small><strong>For You</strong></span>
+            </a>
+            <a class="envelope-link" href="message3.html">
+                <span class="envelope" aria-hidden="true"><span class="envelope-flap"></span><span class="envelope-seal">03</span></span>
+                <span class="envelope-label"><small>Final letter</small><strong>My Last Message</strong></span>
+            </a>
         </nav>
     </main>
+
+    <script src="envelopes.js"></script>
 
 </body>
 </html>
