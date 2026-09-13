@@ -3,6 +3,118 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.theme-control {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--line, #d8c5b2);
+    border-radius: 999px;
+    color: var(--ink, #4e3020);
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 8px 22px rgba(74, 48, 30, 0.12);
+    font-family: Georgia, serif;
+    font-size: 12px;
+}
+
+.theme-control input[type="range"] {
+    width: 70px;
+    margin: 0;
+    padding: 0;
+    accent-color: var(--accent, #714a32);
+    cursor: pointer;
+}
+
+.theme-name {
+    min-width: 28px;
+}
+
+body.theme-blue {
+    --paper: #edf8ff;
+    --ink: #24445c;
+    --muted-ink: #63839a;
+    --line: #b9d9e8;
+    --accent: #4d91b5;
+    background-color: var(--paper);
+    color: var(--ink);
+}
+
+body.theme-blue.welcome-page,
+body.theme-blue.menu-page,
+body.theme-blue.pictures-page,
+body.theme-blue.gallery-page,
+body.theme-blue {
+    background: var(--paper);
+}
+
+body.theme-blue .journey-menu,
+body.theme-blue .story-page,
+body.theme-blue .message-menu,
+body.theme-blue .message-letter,
+body.theme-blue .songs-page,
+body.theme-blue .photo-gallery,
+body.theme-blue .gallery-header {
+    color: var(--ink);
+}
+
+body.theme-blue .journey-menu h1,
+body.theme-blue .message-menu h1,
+body.theme-blue .message-letter h1,
+body.theme-blue .story-copy h2,
+body.theme-blue .songs-intro h1,
+body.theme-blue .gallery-header h1,
+body.theme-blue .gallery-intro h1 {
+    color: var(--ink);
+}
+
+body.theme-blue .welcome-button,
+body.theme-blue .journey-options a:hover,
+body.theme-blue .message-options a:hover,
+body.theme-blue .music-actions button,
+body.theme-blue .volume-toggle,
+body.theme-blue .last-message-link {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+body.theme-blue .welcome-button:hover,
+body.theme-blue .journey-options a:focus-visible,
+body.theme-blue .message-options a:focus-visible,
+body.theme-blue .music-actions button:hover,
+body.theme-blue .volume-toggle:hover,
+body.theme-blue .last-message-link:hover {
+    background-color: #326d8c;
+}
+
+body.theme-blue .welcome-photo-frame {
+    border-color: #fff;
+    box-shadow: 0 18px 40px rgba(36, 68, 92, 0.18);
+}
+
+body.theme-blue .theme-control {
+    border-color: var(--line);
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+body.theme-blue .journey-options a,
+body.theme-blue .message-options a,
+body.theme-blue .music-popover {
+    border-color: var(--line);
+    color: var(--accent);
+    background: rgba(255, 255, 255, 0.72);
+}
+
+body.theme-blue .back-link,
+body.theme-blue .gallery-menu-link,
+body.theme-blue .home-link {
+    color: var(--accent);
+}
+
 :root {
     --paper: #f5f0e6;
     --ink: #4e3020;
