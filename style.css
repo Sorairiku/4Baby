@@ -119,7 +119,7 @@ body.theme-blue .home-link {
 body.theme-blue .story-kicker,
 body.theme-blue .story-intro > p:last-child,
 body.theme-blue .menu-kicker {
-    color: #fff;
+    color: var(--accent);
 }
 
 body.theme-blue .message-kicker,
