@@ -1,9 +1,11 @@
  (function () {
     var journeyTrack = "songs/journey-placeholder.mp3";
     var messageTrack = "songs/message3.mp3";
+    var defaultVolume = 0.3;
     var pageName = window.location.pathname.split("/").pop() || "index.html";
     var backgroundAudio;
-    var volume = Number(localStorage.getItem("journeyVolume")) || 1;
+    var storedVolume = localStorage.getItem("journeyVolume");
+    var volume = storedVolume === null ? defaultVolume : Number(storedVolume);
 
     function stopMusic() {
         if (backgroundAudio) {
