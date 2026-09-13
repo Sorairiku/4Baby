@@ -4,6 +4,7 @@
     var messageTrack = "songs/message3-placeholder.mp3";
     var pageName = window.location.pathname.split("/").pop() || "index.html";
     var backgroundAudio;
+    var volume = Number(localStorage.getItem("journeyVolume")) || 1;
 
     function saveState(track, currentTime) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -30,11 +31,19 @@
         localStorage.removeItem(STORAGE_KEY);
     }
 
+    function updateVolumeDisplay(volumeDisplay) {
+        volumeDisplay.textContent = volume === 0 ? "\uD83D\uDD07" : volume < 0.5 ? "\uD83D\uDD09" : "\uD83D\uDD0A";
+        volumeDisplay.setAttribute("aria-label", "Volume " + Math.round(volume * 100) + "%");
+    }
+
     function playTrack(track, resume) {
         var savedState = readState();
+        stopJourneyMusic();
         backgroundAudio = new Audio(track);
         backgroundAudio.loop = true;
         backgroundAudio.preload = "auto";
+        backgroundAudio.volume = volume;
+        backgroundAudio.autoplay = true;
 
         if (resume && savedState && savedState.track === track) {
             backgroundAudio.currentTime = Number(savedState.currentTime) || 0;
@@ -48,6 +57,38 @@
         });
         saveState(track, backgroundAudio.currentTime || 0);
         backgroundAudio.play().catch(function () {});
+    }
+
+    function createStoryControls() {
+        var controls = document.querySelector(".story-music-controls");
+        var playButton = controls.querySelector("[data-audio-action='play']");
+        var stopButton = controls.querySelector("[data-audio-action='stop']");
+        var volumeControl = controls.querySelector("[data-audio-action='volume']");
+        var volumeDisplay = controls.querySelector(".volume-bars");
+
+        volumeControl.value = volume;
+        updateVolumeDisplay(volumeDisplay);
+
+        document.addEventListener("click", function (event) {
+            if (!controls.contains(event.target)) {
+                controls.removeAttribute("open");
+            }
+        });
+
+        playButton.addEventListener("click", function () {
+            playTrack(journeyTrack, true);
+        });
+        stopButton.addEventListener("click", stopJourneyMusic);
+        volumeControl.addEventListener("input", function () {
+            volume = Number(volumeControl.value);
+            localStorage.setItem("journeyVolume", volume);
+            if (backgroundAudio) {
+                backgroundAudio.volume = volume;
+            }
+            updateVolumeDisplay(volumeDisplay);
+        });
+
+        playTrack(journeyTrack, true);
     }
 
     function startJourney(event) {
@@ -76,8 +117,7 @@
         return;
     }
 
-    var state = readState();
-    if (state && state.track === journeyTrack) {
-        playTrack(journeyTrack, true);
+    if (pageName === "story.html") {
+        createStoryControls();
     }
 }());

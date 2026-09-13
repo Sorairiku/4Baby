@@ -18,6 +18,110 @@ body {
     text-decoration: underline;
 }
 
+.story-music-controls {
+    position: fixed;
+    right: 22px;
+    bottom: 18px;
+    z-index: 10;
+}
+
+.volume-toggle {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    padding: 0;
+    border: 1px solid #c9a98e;
+    border-radius: 50%;
+    color: #fff;
+    background: #714a32;
+    box-shadow: 0 6px 18px rgba(74, 48, 30, 0.2);
+    cursor: pointer;
+    font-size: 21px;
+    list-style: none;
+}
+
+.volume-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.volume-toggle:hover,
+.volume-toggle:focus-visible,
+.story-music-controls[open] .volume-toggle {
+    background: #4e3020;
+}
+
+.music-popover {
+    position: absolute;
+    right: 0;
+    bottom: 58px;
+    width: 210px;
+    padding: 16px;
+    border: 1px solid #c9a98e;
+    border-radius: 10px;
+    color: #4e3020;
+    background: rgba(255, 252, 246, 0.98);
+    box-shadow: 0 12px 30px rgba(74, 48, 30, 0.18);
+}
+
+.music-popover-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-family: Georgia, serif;
+    font-size: 16px;
+}
+
+.volume-icon,
+.volume-status {
+    font-size: 19px;
+}
+
+.music-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.music-actions button {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    padding: 0;
+    border: 1px solid #714a32;
+    border-radius: 4px;
+    color: #fff;
+    background: #714a32;
+    cursor: pointer;
+}
+
+.music-actions button:hover,
+.music-actions button:focus-visible {
+    background: #4e3020;
+}
+
+.music-popover label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: Georgia, serif;
+    font-size: 14px;
+}
+
+.music-popover input[type="range"] {
+    width: 165px;
+    margin: 0;
+    padding: 0;
+    accent-color: #714a32;
+}
+
+.volume-status {
+    display: inline-block;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
 .welcome-page {
     margin: 0;
     min-height: 100vh;
