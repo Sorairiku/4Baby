@@ -10,6 +10,23 @@
 
     <a class="back-link" href="message.html">&larr; Back to messages</a>
 
+    <details class="story-music-controls">
+        <summary class="volume-toggle" aria-label="Open music controls" title="Music controls">&#128266;</summary>
+        <div class="music-popover">
+            <div class="music-popover-heading">
+                <span>Message music</span>
+                <span class="volume-icon" aria-hidden="true">&#128266;</span>
+            </div>
+            <div class="music-actions">
+                <button type="button" data-audio-action="play" aria-label="Play message music" title="Play message music">&#9654;</button>
+                <button type="button" data-audio-action="stop" aria-label="Stop message music" title="Stop message music">&#9632;</button>
+            </div>
+            <label for="message-volume">Volume</label>
+            <input id="message-volume" type="range" data-audio-action="volume" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+            <span class="volume-status" aria-live="polite">&#128266;</span>
+        </div>
+    </details>
+
     <script src="music.js"></script>
 </body>
 </html>

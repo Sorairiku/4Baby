@@ -37,7 +37,7 @@
         });
     }
 
-    function createStoryControls() {
+    function createMusicControls(track) {
         var controls = document.querySelector(".story-music-controls");
         var playButton = controls.querySelector("[data-audio-action='play']");
         var stopButton = controls.querySelector("[data-audio-action='stop']");
@@ -54,7 +54,7 @@
         });
 
         playButton.addEventListener("click", function () {
-            playTrack(journeyTrack);
+            playTrack(track);
         });
         stopButton.addEventListener("click", stopMusic);
         volumeControl.addEventListener("input", function () {
@@ -66,15 +66,15 @@
             updateVolumeDisplay(volumeDisplay);
         });
 
-        playTrack(journeyTrack);
+        playTrack(track);
     }
 
     if (pageName === "message3.html") {
-        playTrack(messageTrack);
+        createMusicControls(messageTrack);
         return;
     }
 
     if (pageName === "story.html") {
-        createStoryControls();
+        createMusicControls(journeyTrack);
     }
 }());
