@@ -26,8 +26,15 @@
         backgroundAudio.preload = "auto";
         backgroundAudio.volume = volume;
         backgroundAudio.autoplay = true;
+        backgroundAudio.setAttribute("playsinline", "");
 
-        backgroundAudio.play().catch(function () {});
+        backgroundAudio.play().catch(function () {
+            document.addEventListener("pointerdown", function resumeAudio() {
+                if (backgroundAudio) {
+                    backgroundAudio.play().catch(function () {});
+                }
+            }, { once: true });
+        });
     }
 
     function createStoryControls() {
