@@ -717,7 +717,7 @@ body.theme-blue .story-video figcaption {
 .last-message-link {
     display: block;
     width: fit-content;
-    margin: -25px auto 0;
+    margin: 0 auto;
     padding: 16px 24px;
     border: 1px solid #714a32;
     border-radius: 999px;
@@ -730,11 +730,21 @@ body.theme-blue .story-video figcaption {
 }
 
 .story-reminder {
-    margin: 0 auto 16px;
+    max-width: 680px;
+    margin: 0 auto 26px;
     color: #9a6e4e;
     font-family: Georgia, serif;
     font-size: 15px;
+    line-height: 1.6;
     text-align: center;
+}
+
+.story-reminder p {
+    margin: 0 0 12px;
+}
+
+.story-reminder p:last-child {
+    margin-bottom: 0;
 }
 
 body.theme-blue .story-reminder {
