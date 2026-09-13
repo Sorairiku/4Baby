@@ -1,15 +1,23 @@
 const gallerySets = {
     sora: {
         title: 'Sora',
-        images: ['images/Him/Him.jpg', ...Array.from({ length: 16 }, (_, index) => `images/Him/Him${index + 1}.jpg`)]
+        images: ['images/Him/Him.jpg', ...Array.from({ length: 19 }, (_, index) => {
+            const number = index + 1;
+            const extension = number === 19 ? 'JPG' : 'jpg';
+            return `images/Him/Him${number}.${extension}`;
+        })]
     },
     hera: {
         title: 'Hera',
-        images: ['images/Her/Her.jpg', ...Array.from({ length: 189 }, (_, index) => `images/Her/Her${index + 1}.jpg`), 'images/Her/baby.jpg']
+        images: ['images/Her/Her.jpg', ...Array.from({ length: 196 }, (_, index) => {
+            const number = index + 1;
+            const extension = number >= 190 ? 'JPG' : 'jpg';
+            return `images/Her/Her${number}.${extension}`;
+        }), 'images/Her/baby.jpg']
     },
     both: {
         title: 'Both',
-        images: ['images/Us/1.png', 'images/Us/Us.jpg', ...Array.from({ length: 142 }, (_, index) => {
+        images: ['images/Us/1.png', 'images/Us/Us.jpg', ...Array.from({ length: 145 }, (_, index) => {
             const number = index + 1;
             const extension = number === 111 ? 'png' : 'jpg';
             return `images/Us/Us${number}.${extension}`;
