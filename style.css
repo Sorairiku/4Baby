@@ -671,8 +671,9 @@ body.theme-blue .envelope-seal {
     display: block;
     width: 100%;
     aspect-ratio: 1 / 1;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 4px;
+    background: rgba(255, 255, 255, 0.55);
     box-shadow: 0 8px 20px rgba(74, 48, 30, 0.12);
 }
 
