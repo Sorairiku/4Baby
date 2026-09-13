@@ -670,7 +670,7 @@ body.theme-blue .envelope-seal {
 .story-photo {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 4px;
     box-shadow: 0 8px 20px rgba(74, 48, 30, 0.12);
