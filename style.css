@@ -569,6 +569,7 @@ body {
 
 .songs-player {
     padding: 28px;
+    border-radius: 24px;
     border: 1px solid var(--line);
     background: rgba(255, 255, 255, 0.42);
     text-align: center;
@@ -602,6 +603,25 @@ body {
     gap: 9px;
 }
 
+.song-progress {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    align-items: center;
+    gap: 10px;
+    max-width: 620px;
+    margin: 0 auto 20px;
+    color: var(--muted-ink);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+}
+
+.song-progress input[type="range"] {
+    width: 100%;
+    margin: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
 .song-controls button {
     display: grid;
     width: 36px;
@@ -609,6 +629,7 @@ body {
     place-items: center;
     padding: 0;
     border: 1px solid var(--accent);
+    border-radius: 50%;
     color: #fff;
     background: var(--accent);
     cursor: pointer;
@@ -646,6 +667,7 @@ body {
     width: 100%;
     padding: 15px 18px;
     border: 1px solid var(--line);
+    border-radius: 16px;
     color: var(--ink);
     background: rgba(255, 255, 255, 0.35);
     text-align: left;
