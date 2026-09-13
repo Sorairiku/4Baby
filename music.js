@@ -64,7 +64,7 @@
         var playButton = controls.querySelector("[data-audio-action='play']");
         var stopButton = controls.querySelector("[data-audio-action='stop']");
         var volumeControl = controls.querySelector("[data-audio-action='volume']");
-        var volumeDisplay = controls.querySelector(".volume-bars");
+        var volumeDisplay = controls.querySelector(".volume-status");
 
         volumeControl.value = volume;
         updateVolumeDisplay(volumeDisplay);
