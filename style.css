@@ -729,6 +729,18 @@ body.theme-blue .story-video figcaption {
     transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
+.story-reminder {
+    margin: 0 auto 16px;
+    color: #9a6e4e;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    text-align: center;
+}
+
+body.theme-blue .story-reminder {
+    color: var(--muted-ink);
+}
+
 .last-message-link:hover,
 .last-message-link:focus-visible {
     background: #4e3020;
