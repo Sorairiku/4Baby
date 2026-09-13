@@ -1124,14 +1124,16 @@ button, input[type="range"] {
     margin-top: 22px;
 }
 
-.photo-card img {
+.photo-card img,
+.photo-card video {
     display: block;
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
 }
 
-.photo-card:nth-child(4n) img {
+.photo-card:nth-child(4n) img,
+.photo-card:nth-child(4n) video {
     aspect-ratio: 5 / 6;
 }
 

@@ -9,7 +9,12 @@ const gallerySets = {
     },
     both: {
         title: 'Both',
-        images: ['images/Us/1.png', 'images/Us/Us.jpg', ...Array.from({ length: 19 }, (_, index) => `images/Us/Us${index + 1}.jpg`)]
+        images: ['images/Us/1.png', 'images/Us/Us.jpg', ...Array.from({ length: 142 }, (_, index) => {
+            const number = index + 1;
+            const extension = number === 111 ? 'png' : 'jpg';
+            return `images/Us/Us${number}.${extension}`;
+        }).filter((image) => !image.includes('Us93.') && !image.includes('Us98.'))],
+        videos: ['images/Us/UsVid1.mov']
     },
     children: {
         title: 'Children',
@@ -21,12 +26,19 @@ const gallery = document.querySelector('[data-gallery]');
 const grid = document.querySelector('[data-photo-grid]');
 const count = document.querySelector('[data-gallery-count]');
 const galleryData = gallerySets[gallery.dataset.gallery];
-const photoCount = galleryData.images.length;
+const photoCount = galleryData.images.length + (galleryData.videos || []).length;
 
 galleryData.images.forEach((image, index) => {
     const card = document.createElement('figure');
     card.className = `photo-card photo-card-${(index % 6) + 1}`;
     card.innerHTML = `<img src="${image}" alt="${galleryData.title} memory ${index + 1}" loading="lazy"><figcaption>${String(index + 1).padStart(3, '0')} <span>${galleryData.title}</span></figcaption>`;
+    grid.append(card);
+});
+
+(galleryData.videos || []).forEach((video, index) => {
+    const card = document.createElement('figure');
+    card.className = `photo-card photo-card-${((galleryData.images.length + index) % 6) + 1}`;
+    card.innerHTML = `<video controls preload="metadata" aria-label="${galleryData.title} video ${index + 1}"><source src="${video}" type="video/quicktime">Your browser does not support this video.</video><figcaption>${String(galleryData.images.length + index + 1).padStart(3, '0')} <span>${galleryData.title} video</span></figcaption>`;
     grid.append(card);
 });
 
