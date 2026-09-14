@@ -1,3 +1,4 @@
+(function () {
 const gallerySets = {
     sora: {
         title: 'Sora',
@@ -51,3 +52,4 @@ galleryData.images.forEach((image, index) => {
 });
 
 count.textContent = `${photoCount} memories`;
+}());

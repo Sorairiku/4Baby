@@ -67,6 +67,55 @@
         });
     }
 
+    window.storyMusicPause = function () {
+        if (backgroundAudio) {
+            backgroundAudio.pause();
+        }
+    };
+
+    window.storyMusicResume = function () {
+        if (localStorage.getItem(playingStorageKey) !== "false") {
+            playTrack();
+        }
+    };
+
+    function setActivePage(url) {
+        var nextPageName = new URL(url, window.location.href).pathname.split("/").pop() || "index.html";
+        var nextIsMessagePage = nextPageName === "message3.html";
+        if (nextIsMessagePage === isMessagePage) {
+            pageName = nextPageName;
+            return;
+        }
+
+        savePlaybackPosition();
+        if (backgroundAudio) {
+            backgroundAudio.pause();
+        }
+        pageName = nextPageName;
+        isMessagePage = nextIsMessagePage;
+        track = isMessagePage ? messageTrack : journeyTrack;
+        volumeStorageKey = isMessagePage ? "messageVolume" : "journeyVolume";
+        positionStorageKey = isMessagePage ? "messagePosition" : "journeyPosition";
+        playingStorageKey = isMessagePage ? "messagePlaying" : "journeyPlaying";
+        var nextVolume = localStorage.getItem(volumeStorageKey);
+        volume = nextVolume === null ? (isMessagePage ? 0.2 : 0.3) : Number(nextVolume);
+
+        if (!backgroundAudio) {
+            return;
+        }
+
+        backgroundAudio.src = track;
+        backgroundAudio.volume = volume;
+        backgroundAudio.load();
+        backgroundAudio.addEventListener("loadedmetadata", function resumeNewTrack() {
+            var storedPosition = Number(localStorage.getItem(positionStorageKey));
+            if (Number.isFinite(storedPosition) && storedPosition > 0) {
+                backgroundAudio.currentTime = storedPosition;
+            }
+            playTrack();
+        }, { once: true });
+    }
+
     function createMusicControls() {
         var controls = document.querySelector(".story-music-controls");
         if (!controls) {
@@ -113,6 +162,72 @@
             playTrack();
         }
     }
+
+    function isInternalPageLink(link) {
+        if (!link || link.target === "_blank" || link.hasAttribute("download")) {
+            return false;
+        }
+
+        var url = new URL(link.href, window.location.href);
+        return url.origin === window.location.origin && url.pathname.endsWith(".html");
+    }
+
+    function runPageScripts(pageBody) {
+        pageBody.querySelectorAll("script").forEach(function (script) {
+            if (script.src && new URL(script.src, window.location.href).pathname.endsWith("/music.js")) {
+                return;
+            }
+
+            var replacement = document.createElement("script");
+            if (script.src) {
+                replacement.src = script.src;
+                replacement.async = false;
+            } else {
+                replacement.textContent = script.textContent;
+            }
+            document.body.append(replacement);
+        });
+    }
+
+    function navigateWithoutReload(url, addToHistory) {
+        fetch(url)
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error("Page could not be loaded");
+                }
+                return response.text();
+            })
+            .then(function (html) {
+                var nextDocument = new DOMParser().parseFromString(html, "text/html");
+                document.title = nextDocument.title;
+                document.body.replaceWith(nextDocument.body);
+                if (addToHistory) {
+                    window.history.pushState({}, "", url);
+                }
+                setActivePage(url);
+                runPageScripts(document.body);
+                createMusicControls();
+                window.scrollTo(0, 0);
+            })
+            .catch(function () {
+                window.location.href = url;
+            });
+    }
+
+    document.addEventListener("click", function (event) {
+        var link = event.target.closest("a");
+        if (!isInternalPageLink(link)) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        navigateWithoutReload(link.href, true);
+    }, true);
+
+    window.addEventListener("popstate", function () {
+        navigateWithoutReload(window.location.href, false);
+    });
 
     window.addEventListener("pagehide", savePlaybackPosition);
     createMusicControls();

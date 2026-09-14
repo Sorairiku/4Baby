@@ -74,6 +74,7 @@
         var currentTime = document.getElementById('currentTime');
         var duration = document.getElementById('duration');
         var songChoices = document.querySelectorAll('.song-choice');
+        var isSongPlaying = false;
 
         function formatTime(seconds) {
             if (!Number.isFinite(seconds)) {
@@ -85,6 +86,7 @@
         }
 
         function selectSong(choice, shouldPlay) {
+            isSongPlaying = shouldPlay;
             audio.src = choice.dataset.src;
             audio.type = choice.dataset.type;
             nowPlaying.textContent = choice.dataset.title;
@@ -93,15 +95,26 @@
                 song.classList.toggle('is-selected', song === choice);
             });
             if (shouldPlay) {
-                audio.play();
+                window.storyMusicPause();
+                audio.play().catch(function () {
+                    isSongPlaying = false;
+                    window.storyMusicResume();
+                });
             }
         }
 
         playButton.addEventListener('click', function () {
-            audio.play();
+            isSongPlaying = true;
+            window.storyMusicPause();
+            audio.play().catch(function () {
+                isSongPlaying = false;
+                window.storyMusicResume();
+            });
         });
         pauseButton.addEventListener('click', function () {
+            isSongPlaying = false;
             audio.pause();
+            window.storyMusicResume();
         });
         volumeControl.addEventListener('input', function () {
             audio.volume = Number(volumeControl.value);
@@ -113,6 +126,18 @@
         audio.addEventListener('timeupdate', function () {
             progressControl.value = audio.currentTime;
             currentTime.textContent = formatTime(audio.currentTime);
+        });
+        audio.addEventListener('play', function () {
+            isSongPlaying = true;
+        });
+        audio.addEventListener('pause', function () {
+            if (!isSongPlaying) {
+                window.storyMusicResume();
+            }
+        });
+        audio.addEventListener('ended', function () {
+            isSongPlaying = false;
+            window.storyMusicResume();
         });
         progressControl.addEventListener('input', function () {
             audio.currentTime = Number(progressControl.value);
