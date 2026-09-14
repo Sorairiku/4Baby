@@ -1635,6 +1635,7 @@ body.lightbox-open {
     max-width: min(92vw, 1100px);
     height: auto;
     max-height: 88vh;
+    margin: auto;
     object-fit: contain;
     box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
 }
@@ -1665,6 +1666,19 @@ body.lightbox-open {
 .gallery-lightbox-close:focus-visible {
     outline: 3px solid #fff;
     outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .gallery-lightbox {
+        padding: 16px;
+    }
+
+    .gallery-lightbox-image {
+        width: auto;
+        max-width: calc(100vw - 32px);
+        max-height: calc(100vh - 32px);
+        margin: auto;
+    }
 }
 
 .photo-card:nth-child(4n) img,
