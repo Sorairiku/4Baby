@@ -35,7 +35,7 @@
     }
 
     function playTrack() {
-        if (!isMessagePage && pageName === "story.html") {
+        if (!isMessagePage && (pageName === "index.html" || pageName === "story.html")) {
             localStorage.setItem(journeyStartedKey, "true");
         }
 
@@ -106,9 +106,10 @@
             updateVolumeDisplay(volumeDisplay);
         });
 
+        var isIndexPage = pageName === "index.html";
         var isStoryPage = pageName === "story.html";
         var shouldResumeJourney = localStorage.getItem(journeyStartedKey) === "true" && localStorage.getItem(playingStorageKey) !== "false";
-        if (isMessagePage || isStoryPage || shouldResumeJourney) {
+        if (isMessagePage || isIndexPage || isStoryPage || shouldResumeJourney) {
             playTrack();
         }
     }
