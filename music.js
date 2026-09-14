@@ -1,35 +1,62 @@
- (function () {
+(function () {
     var journeyTrack = "songs/journey-placeholder.mp3";
     var messageTrack = "songs/message3.mp3";
     var pageName = window.location.pathname.split("/").pop() || "index.html";
-    var defaultVolume = pageName === "message3.html" ? 0.2 : 0.3;
-    var volumeStorageKey = pageName === "message3.html" ? "messageVolume" : "journeyVolume";
-    var backgroundAudio;
+    var isMessagePage = pageName === "message3.html";
+    var track = isMessagePage ? messageTrack : journeyTrack;
+    var volumeStorageKey = isMessagePage ? "messageVolume" : "journeyVolume";
+    var positionStorageKey = isMessagePage ? "messagePosition" : "journeyPosition";
+    var playingStorageKey = isMessagePage ? "messagePlaying" : "journeyPlaying";
+    var journeyStartedKey = "journeyStarted";
+    var defaultVolume = isMessagePage ? 0.2 : 0.3;
     var storedVolume = localStorage.getItem(volumeStorageKey);
     var volume = storedVolume === null ? defaultVolume : Number(storedVolume);
-
-    function stopMusic() {
-        if (backgroundAudio) {
-            backgroundAudio.pause();
-            backgroundAudio.removeAttribute("src");
-            backgroundAudio.load();
-            backgroundAudio = null;
-        }
-    }
+    var backgroundAudio;
 
     function updateVolumeDisplay(volumeDisplay) {
         volumeDisplay.textContent = volume === 0 ? "\uD83D\uDD07" : volume < 0.5 ? "\uD83D\uDD09" : "\uD83D\uDD0A";
         volumeDisplay.setAttribute("aria-label", "Volume " + Math.round(volume * 100) + "%");
     }
 
-    function playTrack(track) {
-        stopMusic();
-        backgroundAudio = new Audio(track);
-        backgroundAudio.loop = true;
-        backgroundAudio.preload = "auto";
-        backgroundAudio.volume = volume;
-        backgroundAudio.autoplay = true;
-        backgroundAudio.setAttribute("playsinline", "");
+    function savePlaybackPosition() {
+        if (backgroundAudio && Number.isFinite(backgroundAudio.currentTime)) {
+            localStorage.setItem(positionStorageKey, backgroundAudio.currentTime);
+        }
+    }
+
+    function stopMusic() {
+        if (!backgroundAudio) {
+            return;
+        }
+
+        backgroundAudio.pause();
+        savePlaybackPosition();
+        localStorage.setItem(playingStorageKey, "false");
+    }
+
+    function playTrack() {
+        if (!isMessagePage && pageName === "story.html") {
+            localStorage.setItem(journeyStartedKey, "true");
+        }
+
+        if (!backgroundAudio) {
+            backgroundAudio = new Audio(track);
+            backgroundAudio.loop = true;
+            backgroundAudio.preload = "auto";
+            backgroundAudio.volume = volume;
+            backgroundAudio.setAttribute("playsinline", "");
+
+            var storedPosition = Number(localStorage.getItem(positionStorageKey));
+            if (Number.isFinite(storedPosition) && storedPosition > 0) {
+                backgroundAudio.currentTime = storedPosition;
+            }
+
+            backgroundAudio.addEventListener("timeupdate", savePlaybackPosition);
+            backgroundAudio.addEventListener("play", function () {
+                localStorage.setItem(playingStorageKey, "true");
+            });
+            backgroundAudio.addEventListener("pause", savePlaybackPosition);
+        }
 
         backgroundAudio.play().catch(function () {
             document.addEventListener("pointerdown", function resumeAudio() {
@@ -40,8 +67,20 @@
         });
     }
 
-    function createMusicControls(track) {
+    function createMusicControls() {
         var controls = document.querySelector(".story-music-controls");
+        if (!controls) {
+            controls = document.createElement("details");
+            controls.className = "story-music-controls";
+            controls.innerHTML = '<summary class="volume-toggle" aria-label="Open music controls" title="Music controls">&#128266;</summary>' +
+                '<div class="music-popover"><div class="music-popover-heading"><span>Story music</span><span class="volume-icon" aria-hidden="true">&#128266;</span></div>' +
+                '<div class="music-actions"><button type="button" data-audio-action="play" aria-label="Play music" title="Play music">&#9654;</button>' +
+                '<button type="button" data-audio-action="stop" aria-label="Pause music" title="Pause music">&#9632;</button></div>' +
+                '<label for="journey-volume">Volume</label><input id="journey-volume" type="range" data-audio-action="volume" min="0" max="1" step="0.01" value="0.3" aria-label="Volume">' +
+                '<span class="volume-status" aria-live="polite">&#128266;</span></div>';
+            document.body.append(controls);
+        }
+
         var playButton = controls.querySelector("[data-audio-action='play']");
         var stopButton = controls.querySelector("[data-audio-action='stop']");
         var volumeControl = controls.querySelector("[data-audio-action='volume']");
@@ -56,9 +95,7 @@
             }
         });
 
-        playButton.addEventListener("click", function () {
-            playTrack(track);
-        });
+        playButton.addEventListener("click", playTrack);
         stopButton.addEventListener("click", stopMusic);
         volumeControl.addEventListener("input", function () {
             volume = Number(volumeControl.value);
@@ -69,15 +106,13 @@
             updateVolumeDisplay(volumeDisplay);
         });
 
-        playTrack(track);
+        var isStoryPage = pageName === "story.html";
+        var shouldResumeJourney = localStorage.getItem(journeyStartedKey) === "true" && localStorage.getItem(playingStorageKey) !== "false";
+        if (isMessagePage || isStoryPage || shouldResumeJourney) {
+            playTrack();
+        }
     }
 
-    if (pageName === "message3.html") {
-        createMusicControls(messageTrack);
-        return;
-    }
-
-    if (pageName === "story.html") {
-        createMusicControls(journeyTrack);
-    }
+    window.addEventListener("pagehide", savePlaybackPosition);
+    createMusicControls();
 }());
