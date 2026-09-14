@@ -330,6 +330,16 @@ body.theme-blue .envelope-seal {
     height: 100%;
     object-fit: cover;
     object-position: center;
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    transition: opacity 0.28s ease, transform 0.28s ease, filter 0.28s ease;
+}
+
+.welcome-photo.is-switching {
+    opacity: 0;
+    transform: scale(1.04);
+    filter: blur(4px);
 }
 
 .welcome-button {

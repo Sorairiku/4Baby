@@ -10,19 +10,54 @@
     document.body.append(control);
 
     var slider = control.querySelector("#themeSlider");
+    var photoChangeId = 0;
 
-    function updateTheme(value) {
+    function updateTheme(value, animatePhoto) {
         var blue = Number(value) === 1;
         document.body.classList.toggle("theme-blue", blue);
         localStorage.setItem("siteTheme", blue ? "blue" : "warm");
         var welcomePhoto = document.querySelector(".welcome-photo");
-        if (welcomePhoto) {
-            welcomePhoto.src = blue ? "images/Us/Us57.jpg" : "images/menbaby.JPG";
+        if (!welcomePhoto) {
+            return;
         }
+
+        var nextPhoto = blue ? "images/Us/Us57.jpg" : "images/menbaby.JPG";
+        if (welcomePhoto.getAttribute("src") === nextPhoto) {
+            return;
+        }
+
+        if (!animatePhoto) {
+            welcomePhoto.src = nextPhoto;
+            return;
+        }
+
+        var currentPhotoChange = ++photoChangeId;
+        var preloadedPhoto = new Image();
+        preloadedPhoto.onload = function () {
+            if (currentPhotoChange !== photoChangeId) {
+                return;
+            }
+
+            welcomePhoto.classList.add("is-switching");
+            void welcomePhoto.offsetWidth;
+            window.setTimeout(function () {
+                if (currentPhotoChange !== photoChangeId) {
+                    return;
+                }
+
+                welcomePhoto.src = nextPhoto;
+                window.requestAnimationFrame(function () {
+                    window.requestAnimationFrame(function () {
+                        welcomePhoto.classList.remove("is-switching");
+                    });
+                });
+            }, 300);
+        };
+        preloadedPhoto.src = nextPhoto;
     }
 
     slider.addEventListener("input", function () {
-        updateTheme(slider.value);
+        updateTheme(slider.value, true);
     });
-    updateTheme(slider.value);
+    updateTheme(slider.value, false);
 }());
