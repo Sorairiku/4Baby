@@ -1398,6 +1398,24 @@ button, input[type="range"] {
     padding: 0 28px 80px;
 }
 
+.gallery-footer {
+    padding: 0 28px 42px;
+    text-align: center;
+}
+
+.gallery-drive-link {
+    color: var(--accent);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.gallery-drive-link:hover,
+.gallery-drive-link:focus-visible {
+    color: var(--ink);
+}
+
 .gallery-choice {
     position: relative;
     display: block;
