@@ -18,11 +18,19 @@ const gallerySets = {
     },
     both: {
         title: 'Us',
-        images: ['images/Us/1.png', 'images/Us/Us.jpg', ...Array.from({ length: 145 }, (_, index) => {
-            const number = index + 1;
-            const extension = number === 111 ? 'png' : 'jpg';
-            return `images/Us/Us${number}.${extension}`;
-        }).filter((image) => !image.includes('Us93.') && !image.includes('Us98.'))],
+        images: (() => {
+            const generated = Array.from({ length: 145 }, (_, index) => {
+                const number = index + 1;
+                const extension = [111, 144].includes(number) ? 'png' : 'jpg';
+                return `images/Us/Us${number}.${extension}`;
+            }).filter((image) => !image.includes('Us93.') && !image.includes('Us98.'));
+
+            if (!generated.some((image) => image.includes('Us144.png'))) {
+                generated.splice(143, 0, 'images/Us/Us144.png');
+            }
+
+            return ['images/Us/1.png', 'images/Us/Us.jpg', ...generated];
+        })(),
         videos: ['images/Us/UsVid1.mov']
     },
     children: {
@@ -71,7 +79,33 @@ function openLightbox(photo) {
 galleryData.images.forEach((image, index) => {
     const card = document.createElement('figure');
     card.className = `photo-card photo-card-${(index % 6) + 1}`;
-    card.innerHTML = `<img src="${image}" alt="${galleryData.title} memory ${index + 1}" loading="lazy" tabindex="0"><figcaption>${String(index + 1).padStart(3, '0')} <span>${galleryData.title}</span></figcaption>`;
+
+    const img = document.createElement('img');
+    img.src = image;
+    img.alt = `${galleryData.title} memory ${index + 1}`;
+    img.loading = 'lazy';
+    img.tabIndex = 0;
+    img.addEventListener('error', () => {
+        if (img.dataset.fallbackTried === 'true') {
+            return;
+        }
+
+        img.dataset.fallbackTried = 'true';
+        const current = img.getAttribute('src') || '';
+        if (current.endsWith('.png')) {
+            img.src = current.replace(/\.png$/i, '.jpg');
+            return;
+        }
+
+        if (current.endsWith('.jpg') || current.endsWith('.jpeg')) {
+            img.src = current.replace(/\.(jpg|jpeg)$/i, '.png');
+        }
+    });
+
+    const figcaption = document.createElement('figcaption');
+    figcaption.innerHTML = `${String(index + 1).padStart(3, '0')} <span>${galleryData.title}</span>`;
+
+    card.append(img, figcaption);
     grid.append(card);
 });
 

@@ -2,7 +2,7 @@
     var journeyTrack = "songs/journey-placeholder.mp3";
     var messageTrack = "songs/message3.mp3";
     var pageName = window.location.pathname.split("/").pop() || "index.html";
-    var isMessagePage = pageName === "message3.html";
+    var isMessagePage = pageName === "message3.html" || pageName === "message4.html";
     var track = isMessagePage ? messageTrack : journeyTrack;
     var volumeStorageKey = isMessagePage ? "messageVolume" : "journeyVolume";
     var positionStorageKey = isMessagePage ? "messagePosition" : "journeyPosition";
@@ -81,7 +81,7 @@
 
     function setActivePage(url) {
         var nextPageName = new URL(url, window.location.href).pathname.split("/").pop() || "index.html";
-        var nextIsMessagePage = nextPageName === "message3.html";
+        var nextIsMessagePage = nextPageName === "message3.html" || nextPageName === "message4.html";
         if (nextIsMessagePage === isMessagePage) {
             pageName = nextPageName;
             return;
@@ -157,8 +157,8 @@
 
         var isIndexPage = pageName === "index.html";
         var isStoryPage = pageName === "story.html";
-        var shouldResumeJourney = localStorage.getItem(journeyStartedKey) === "true" && localStorage.getItem(playingStorageKey) !== "false";
-        if (isMessagePage || isIndexPage || isStoryPage || shouldResumeJourney) {
+        var isAllowedMusicPage = isMessagePage || isIndexPage || isStoryPage;
+        if (isAllowedMusicPage) {
             playTrack();
         }
     }
