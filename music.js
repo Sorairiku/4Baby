@@ -2,7 +2,7 @@
     var journeyTrack = "songs/journey-placeholder.mp3";
     var messageTrack = "songs/message3.mp3";
     var pageName = window.location.pathname.split("/").pop() || "index.html";
-    var isMessagePage = pageName === "message3.html" || pageName === "message4.html";
+    var isMessagePage = pageName === "message3.html";
     var track = isMessagePage ? messageTrack : journeyTrack;
     var volumeStorageKey = isMessagePage ? "messageVolume" : "journeyVolume";
     var positionStorageKey = isMessagePage ? "messagePosition" : "journeyPosition";
@@ -39,7 +39,14 @@
             localStorage.setItem(journeyStartedKey, "true");
         }
 
-        if (!backgroundAudio) {
+        var expectedTrackUrl = new URL(track, window.location.href).toString();
+        if (!backgroundAudio || !backgroundAudio.src || backgroundAudio.src !== expectedTrackUrl) {
+            if (backgroundAudio) {
+                backgroundAudio.pause();
+                backgroundAudio.src = "";
+                backgroundAudio.load();
+            }
+
             backgroundAudio = new Audio(track);
             backgroundAudio.loop = true;
             backgroundAudio.preload = "auto";
@@ -81,7 +88,7 @@
 
     function setActivePage(url) {
         var nextPageName = new URL(url, window.location.href).pathname.split("/").pop() || "index.html";
-        var nextIsMessagePage = nextPageName === "message3.html" || nextPageName === "message4.html";
+        var nextIsMessagePage = nextPageName === "message3.html";
         if (nextIsMessagePage === isMessagePage) {
             pageName = nextPageName;
             return;
@@ -169,7 +176,8 @@
         }
 
         var url = new URL(link.href, window.location.href);
-        return url.origin === window.location.origin && url.pathname.endsWith(".html");
+        var isMessageNavigation = url.pathname.endsWith("message3.html");
+        return url.origin === window.location.origin && (url.pathname.endsWith(".html") && !isMessageNavigation ? true : isMessageNavigation);
     }
 
     function runPageScripts(pageBody) {
@@ -217,6 +225,12 @@
     document.addEventListener("click", function (event) {
         var link = event.target.closest("a");
         if (!isInternalPageLink(link)) {
+            return;
+        }
+
+        var url = new URL(link.href, window.location.href);
+        if (url.pathname.endsWith("message3.html")) {
+            window.location.href = link.href;
             return;
         }
 

@@ -64,7 +64,8 @@
         <p>I know I sometimes pushed you about applications because I hate seeing you feel stuck. Looking back, I realize I may have pushed too hard sometimes. I’m sorry for that. I wanted to see you move forward because I knew you were capable of more, but I should have trusted you to find your own pace.</p>
         <p>About your profession, there’s nothing we/you can do about it now. You just have to make do with what you have now and that is a nursing degree and a board passer at that. That is not failing at school love, that is something to be proud of. But if nursing is not what you really love, there are also BPOs  where you can organize charts and stuff. A whole world of possibilities, you just need to take the first step.</p>
         <p>Please do not be offended by me asking you to pursue job applications. We all have a life goal but to get there we need to start somewhere love. I want you to explore, to fail is not bad. It’s how you take it is the problem. Failing means you get another chance to improve yourself. Nobody ever succeeds on their first try.</p>
-        <p>I also considered lending you money for you to take the nclex. I know i say this too much in this letter but all I ever wanted for you was for you to reach your dreams. If ever you were to go to the States ahead of me, we would try our best to be together. If that does not work and you/we get tired of the LDR situation, I would be okay with that. I would be okay that you move on from me and be happy with your life.</p>
+        <p>I also considered lending you money for you to take the NCLEX. Even now if you ask me I will still help you with that. Just tell me and I would help you in a heartbeat. All I could ever ask is to see you happy and living the dream.</p>
+        <p>I know i say this too much in this letter but all I ever wanted for you was for you to reach your dreams. If ever you were to go to the States ahead of me, we would try our best to be together. If that does not work and you/we get tired of the LDR situation, I would be okay with that. I would be okay that you move on from me and be happy with your life.</p>
         <p>Again, I love you more than any of my actions, words, or long messages could say. If you could promise me one thing, please don’t give up on yourself. I know you’re capable of more, and I hope you continue pursuing the life you want. I want you to succeed in life, not be there forever. Not that there’s anything wrong there. It’s just I want you to achieve more in life, to be the happiest you can be with or without me.</p>
         <p>And it’s funny because when I think about what I miss, it’s not always the big things. Sometimes it’s the most ordinary things. Seeing your name on my phone. Telling you something stupid that happened during my day. Asking what you ate. Hearing about something that happened to you that I probably wouldn’t understand anyway. Sending you something random because I knew you’d laugh at it. Those little things became such a normal part of my life that I never imagined there would be a day when I would have to get used to not having them.</p>
         <p>I wish this would not be the end for us and we can fix this together but yeah. Thank you for everything. Thank you for bearing with me, for giving me time, for helping me when i needed you, for all the times you forgave me when i made a mistake, and thank you for loving and caring for a person like me. You made me into the person I am today, and for that I can’t thank you enough. Thank you for being a very significant part of my life, If we ever cross paths one day again I hope we will be ready for each other.</p>
@@ -86,10 +87,70 @@
         <figure class="photo-card message-photo-card">
             <img src="images/Us/Us144.png" alt="Us memory 144">
         </figure>
-        <p><a href="message4.html">Read only if you want to</a></p>
+
+        <div class="optional-letter-block">
+            <p class="optional-letter-label">Read this only if you want to</p>
+            <button type="button" class="optional-letter-trigger" data-open-message aria-label="Open optional message">
+                <span class="optional-envelope-flap"></span>
+                <span class="optional-envelope-seal">✉</span>
+            </button>
+        </div>
     </main>
+
+    <div class="letter-modal" aria-hidden="true">
+        <div class="letter-modal-backdrop" data-close-message></div>
+        <div class="letter-modal-panel" role="dialog" aria-modal="true" aria-labelledby="optional-letter-title">
+            <button type="button" class="letter-close" aria-label="Close letter" data-close-message>&times;</button>
+            <div class="letter-content">
+                <p class="message-kicker">Only if you want to</p>
+                <h1 id="optional-letter-title">Love,</h1>
+                <p>You don’t have to open this if you don’t want to. I don’t want you to feel like you have to read another thing from me after everything I’ve already said.</p>
+                <p>I just wanted to leave you with one honest thought.</p>
+                <p>I don’t want to lie to you. I still want us.</p>
+                <p>I don’t want to just give up and pretend I’m okay with losing you when I’m not. If someday you’re willing to give us another chance, I want to start over with you. Not just go back to how things were, but start again and do things differently. I want us to build something better than what we had.</p>
+                <p>I know that’s your decision, and I won’t force you. I won’t ask you to make that decision now.</p>
+                <p>I just want you to know that I’m still here, and I’m not giving up on the possibility of us.</p>
+                <p>That’s all.</p>
+                <p>I love you.</p>
+            </div>
+        </div>
+    </div>
 
     <script src="music.js"></script>
     <script src="theme.js"></script>
+    <script>
+        (function () {
+            var trigger = document.querySelector('[data-open-message]');
+            var modal = document.querySelector('.letter-modal');
+            var closeButtons = document.querySelectorAll('[data-close-message]');
+
+            if (!trigger || !modal) {
+                return;
+            }
+
+            function openModal() {
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            trigger.addEventListener('click', openModal);
+            closeButtons.forEach(function (button) {
+                button.addEventListener('click', closeModal);
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+                    closeModal();
+                }
+            });
+        }());
+    </script>
 </body>
 </html>
