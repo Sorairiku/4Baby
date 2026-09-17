@@ -16,11 +16,58 @@
             <img src="images/menbaby.JPG" class="welcome-photo" alt="Sora and Hera together">
         </div>
 
-        <a class="welcome-button" href="menu.html">Let's start the journey</a>
+        <button type="button" class="welcome-button" data-open-journey>Let's start the journey</button>
     </main>
+
+    <div class="journey-modal" aria-hidden="true">
+        <div class="journey-modal-backdrop" data-close-journey></div>
+        <div class="journey-modal-panel" role="dialog" aria-modal="true" aria-labelledby="journey-modal-title">
+            <h1 id="journey-modal-title">Hi love,</h1>
+            <p>This website has audio hahaha. It's completely your choice if you want to keep it on or off.</p>
+            <p>Just press OK when you are Ready</p>
+            <a class="journey-modal-ok" href="menu.html" data-confirm-journey>OK</a>
+        </div>
+    </div>
 
     <script src="music.js"></script>
     <script src="theme.js"></script>
+    <script>
+        (function () {
+            var trigger = document.querySelector('[data-open-journey]');
+            var modal = document.querySelector('.journey-modal');
+            var confirmButton = document.querySelector('[data-confirm-journey]');
+
+            if (!trigger || !modal || !confirmButton) {
+                return;
+            }
+
+            function closeModal() {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                trigger.focus();
+            }
+
+            trigger.addEventListener('click', function () {
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                confirmButton.focus();
+            });
+
+            modal.addEventListener('click', function (event) {
+                if (event.target.hasAttribute('data-close-journey')) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+                    closeModal();
+                }
+            });
+        }());
+    </script>
 
 </body>
 </html>
