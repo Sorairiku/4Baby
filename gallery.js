@@ -35,7 +35,7 @@ const gallerySets = {
     },
     children: {
         title: 'Children',
-        images: ['images/Children/Child.jpg', ...Array.from({ length: 6 }, (_, index) => `images/Children/Child${index + 1}.jpg`)]
+        images: ['images/Children/Child.jpg', ...Array.from({ length: 9 }, (_, index) => `images/Children/Child${index + 1}.jpg`)]
     }
 };
 

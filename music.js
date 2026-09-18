@@ -34,6 +34,32 @@
         localStorage.setItem(playingStorageKey, "false");
     }
 
+    function removeAudioResumeListeners() {
+        ["pointerdown", "keydown", "touchstart"].forEach(function (eventName) {
+            document.removeEventListener(eventName, resumeAudioFromInteraction, true);
+        });
+    }
+
+    function resumeAudioFromInteraction() {
+        if (!backgroundAudio) {
+            return;
+        }
+
+        var resumeAttempt = backgroundAudio.play();
+        if (resumeAttempt && typeof resumeAttempt.then === "function") {
+            resumeAttempt.then(removeAudioResumeListeners).catch(function () {});
+            return;
+        }
+
+        removeAudioResumeListeners();
+    }
+
+    function listenForAudioInteraction() {
+        ["pointerdown", "keydown", "touchstart"].forEach(function (eventName) {
+            document.addEventListener(eventName, resumeAudioFromInteraction, true);
+        });
+    }
+
     function playTrack() {
         if (!isMessagePage && (pageName === "index.html" || pageName === "story.html")) {
             localStorage.setItem(journeyStartedKey, "true");
@@ -65,13 +91,7 @@
             backgroundAudio.addEventListener("pause", savePlaybackPosition);
         }
 
-        backgroundAudio.play().catch(function () {
-            document.addEventListener("pointerdown", function resumeAudio() {
-                if (backgroundAudio) {
-                    backgroundAudio.play().catch(function () {});
-                }
-            }, { once: true });
-        });
+        backgroundAudio.play().catch(listenForAudioInteraction);
     }
 
     window.storyMusicPause = function () {
@@ -164,7 +184,7 @@
 
         var isIndexPage = pageName === "index.html";
         var isStoryPage = pageName === "story.html";
-        var isAllowedMusicPage = !isMessagePage;
+        var isAllowedMusicPage = isMessagePage || isIndexPage || isStoryPage;
         if (isAllowedMusicPage) {
             playTrack();
         }
@@ -230,7 +250,13 @@
 
         var url = new URL(link.href, window.location.href);
         if (url.pathname.endsWith("message3.html")) {
-            window.location.href = link.href;
+            event.preventDefault();
+            event.stopPropagation();
+            setActivePage(url);
+            if (backgroundAudio) {
+                backgroundAudio.play().catch(function () {});
+            }
+            navigateWithoutReload(link.href, true);
             return;
         }
 
