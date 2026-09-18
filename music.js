@@ -164,7 +164,7 @@
 
         var isIndexPage = pageName === "index.html";
         var isStoryPage = pageName === "story.html";
-        var isAllowedMusicPage = isMessagePage || isIndexPage || isStoryPage;
+        var isAllowedMusicPage = !isMessagePage;
         if (isAllowedMusicPage) {
             playTrack();
         }
@@ -236,6 +236,9 @@
 
         event.preventDefault();
         event.stopPropagation();
+        if (pageName === "index.html" && localStorage.getItem(playingStorageKey) !== "false" && (!backgroundAudio || backgroundAudio.paused)) {
+            playTrack();
+        }
         navigateWithoutReload(link.href, true);
     }, true);
 
