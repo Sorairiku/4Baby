@@ -403,6 +403,16 @@ body.theme-blue .envelope-seal {
     transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
+.theme-change-hint {
+    margin: 0;
+    color: var(--accent, #714a32);
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+    opacity: 0.9;
+}
+
 .welcome-button:hover,
 .welcome-button:focus-visible {
     background-color: #4e3020;
